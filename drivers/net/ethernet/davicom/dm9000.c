@@ -35,6 +35,7 @@
 #include <asm/irq.h>
 #include <asm/io.h>
 
+#include <linux/clk.h>
 #include "dm9000.h"
 
 /* Board/System/Debug information/definition ---------------- */
@@ -1425,6 +1426,7 @@ dm9000_probe(struct platform_device *pdev)
 	enum of_gpio_flags flags;
 	struct regulator *power;
 	bool inv_mac_addr = false;
+	const char *clk_name;
 	u8 addr[ETH_ALEN];
 
 	power = devm_regulator_get(dev, "vcc");
@@ -1564,6 +1566,18 @@ dm9000_probe(struct platform_device *pdev)
 		dev_err(db->dev, "failed to ioremap data reg\n");
 		ret = -EINVAL;
 		goto out;
+	}
+	
+	/* Enable clock if specified */
+	if (!of_property_read_string(dev->of_node, "clock-names", &clk_name)) {
+	    struct clk *clk = devm_clk_get(dev, clk_name);
+	    if (IS_ERR(clk)) {
+	        dev_err(dev, "cannot get clock of %s\n", clk_name);
+	        ret = PTR_ERR(clk);
+	        goto out;
+	    }
+	    clk_prepare_enable(clk);
+	    dev_info(dev, "enable clock '%s'\n", clk_name);
 	}
 
 	/* fill in parameters for net-dev structure */

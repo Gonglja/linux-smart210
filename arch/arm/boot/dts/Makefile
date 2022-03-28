@@ -1104,7 +1104,8 @@ dtb-$(CONFIG_ARCH_S5PV210) += \
 	s5pv210-goni.dtb \
 	s5pv210-smdkc110.dtb \
 	s5pv210-smdkv210.dtb \
-	s5pv210-torbreck.dtb
+	s5pv210-torbreck.dtb \
+	s5pv210-smart210.dtb
 dtb-$(CONFIG_ARCH_INTEL_SOCFPGA) += \
 	socfpga_arria5_socdk.dtb \
 	socfpga_arria10_mercury_aa1.dtb \
