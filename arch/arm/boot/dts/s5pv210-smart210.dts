@@ -29,7 +29,7 @@
 
 	memory@20000000 {
 		device_type = "memory";
-		reg = <0x20000000 0x05000000>;
+		reg = <0x20000000 0x20000000>;
 	};
 
 	ethernet@88000000 {  //修改DM9000
@@ -39,7 +39,7 @@
 		//第二值：4   1 = low-to-high edge triggered，2 = high-to-low edge triggered，4 = active high level-sensitive，8 = active low level-sensitive
 		interrupt-parent = <&gph0>;
 		interrupts = <7 4>;
-		local-mac-address = [1a 2a 3a 4a 5a 6a];
+		local-mac-address = [1a 2b 3c 4d 5e 6f];
 		davicom,no-eeprom;
 		clocks = <&clocks CLK_SROMC>;
 		clock-names = "sromc";

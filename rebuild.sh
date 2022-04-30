@@ -4,8 +4,8 @@ export CROSS_COMPILE=arm-none-eabi-
 
 make clean && make distclean 
 make s5pv210_fin_defconfig 
-make LOADADDR=0x20008000 uImage -j12
-make dtbs
+make LOADADDR=0x20004000 uImage -j$(nproc)
+make dtbs -j$(nproc)
 
 echo "copy to ../rootfs/"
 sudo cp -vrf arch/arm/boot/uImage ../rootfs/
